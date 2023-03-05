@@ -1,17 +1,18 @@
 ---
 galaxy_info:
-  author: Cylindric
   namespace: homelab
+  role_name: vault_agent_templates
+  author: Cylindric
   description: Vault Agent Configuration Role
   company: CylCorp
   license: Apache-2.0
   min_ansible_version: "2.1"
 
   platforms:
-  - name: Ubuntu
-    versions:
-    - focal
-    - jammy
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
 
   galaxy_tags:
     - cylcorp
