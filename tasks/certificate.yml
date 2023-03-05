@@ -1,5 +1,5 @@
 ---
-- name: HomeLab | Vault Agent | Certificate template
+- name: HomeLab | Vault certificate template
   ansible.builtin.template:
     src: "templates/certificate.tmpl"
     dest: "/etc/vault.d/cert-{{ certificate.name }}.tmpl"
@@ -10,14 +10,14 @@
     mode: "0664"
   notify: Restart Vault Agent
 
-- name: HomeLab | Vault Agent | Certificate configuration
+- name: HomeLab | Vault certificate configuration
   ansible.builtin.blockinfile:
     path: "/etc/vault.d/vault-agent.hcl"
     create: true
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: "0664"
-    marker: "# {mark} HOMELAB CERTIFICATE TEMPLATE {{ certificate.name | upper }}"
+    marker: "# {mark} CERTIFICATE {{ certificate.name | upper }}"
     block: |
       template {
         source      = "/etc/vault.d/cert-{{ certificate.name }}.tmpl"

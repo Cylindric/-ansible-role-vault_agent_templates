@@ -1,11 +1,11 @@
 ---
-- name: Deploy Vault Certificates
+- name: Deploy Vault certificates
   ansible.builtin.include_tasks: certificate.yml
   loop: "{{ vault_certificates }}"
   loop_control:
     loop_var: certificate
 
-- name: Deploy Vault Tokens
+- name: Deploy Vault tokens
   ansible.builtin.include_tasks: token.yml
   loop: "{{ vault_tokens }}"
   loop_control:
