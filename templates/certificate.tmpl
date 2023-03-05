@@ -1,0 +1,21 @@
+{{- with pkiCert "<< vault_pki_engine >>/issue/{% if certificate.policy is defined and certificate.policy|length %}<< certificate.policy >>{% else %}server-cert{% endif %}" 
+    "common_name=<< certificate.common_name >>"
+{% if certificate.alt_names is defined and certificate.alt_names|length %}
+    "alt_names=<< certificate.alt_names >>"
+{% endif %}
+{% if certificate.ip_sans is defined and certificate.ip_sans|length %}
+    "ip_sans=<< certificate.ip_sans >>"
+{% endif %}
+{% if certificate.ttl is defined and certificate.ttl|length %}
+    "ttl=<< certificate.ttl >>"
+{% endif %}
+-}}
+{{- .Data.Cert -}}
+{{- .Data.CA -}}
+{{- if .Key -}}
+{{- .Key | writeToFile "<< certificate.key_file >>" "" "" "0640" -}}
+{{- end -}}
+{{- if .CA -}}
+{{- .CA | writeToFile "<< certificate.ca_file >>" "" "" "0644" -}}
+{{- end -}}
+{{- end -}}

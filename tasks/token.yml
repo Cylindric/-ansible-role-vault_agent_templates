@@ -1,0 +1,23 @@
+---
+- name: HomeLab | Vault Agent | Token template
+  ansible.builtin.template:
+    src: "templates/token.tmpl"
+    dest: "/etc/vault.d/token-{{ token.name }}.tmpl"
+    variable_start_string: "<<"
+    variable_end_string: ">>"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: "0664"
+  notify: Restart Vault Agent
+
+- name: HomeLab | Vault Agent | Token configuration
+  ansible.builtin.blockinfile:
+    create: true
+    path: "/etc/vault.d/vault-agent.hcl"
+    marker: "# {mark} HOMELAB TOKEN TEMPLATE {{ token.name|upper }}"
+    block: |
+      template {
+        source      = "/etc/vault.d/token-{{ token.name }}.tmpl"
+        destination = "{{ token.token_file }}"
+      }
+  notify: Restart Vault Agent

@@ -1,0 +1,21 @@
+---
+vault_pki_engine: pki
+vault_certificates: []
+vault_tokens: []
+
+# Samples
+vault_certificates_examples:
+  - name: "test_both"
+    common_name: "{{ inventory_hostname }}.example"
+    alt_names: "testing.example"
+    ip_sans: "{{ ansible_default_ipv4.address }}"
+    cert_file: "/tmp/cert.pem"
+    key_file: "/tmp/cert-key.pem"
+    ca_file: "/tmp/ca.pem"
+    policy: "server_cert"
+    ttl: "1h"
+
+vault_tokens_examples:
+  - name: test
+    token_file: "/tmp/token"
+    ttl: "1h"
