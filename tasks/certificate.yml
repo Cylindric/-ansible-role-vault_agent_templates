@@ -9,7 +9,7 @@
       cert_file: "{{ certificate.cert_file }}"
       key_file: "{{ certificate.key_file }}"
       ca_file: "{{ certificate.ca_file }}"
-      policy: '{{ certificate["policy"] | default("server_cert") }}'
+      policy: '{{ certificate["policy"] | default("server-cert") }}'
       ttl: '{{ certificate["ttl"] | default("24h") }}'
       owner: '{{ certificate["owner"] | default("") }}'
       group: '{{ certificate["group"] | default("") }}'
