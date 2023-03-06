@@ -4,8 +4,8 @@
     cert:
       name: "{{ certificate.name }}"
       common_name: "{{ certificate.common_name }}"
-      alt_names: "{{ certificate.alt_names }}"
-      ip_sans: "{{ certificate.ip_sans }}"
+      alt_names: "{{ certificate.alt_names | default({}) }}"
+      ip_sans: "{{ certificate.ip_sans | default({}) }}"
       cert_file: "{{ certificate.cert_file }}"
       key_file: "{{ certificate.key_file }}"
       ca_file: "{{ certificate.ca_file }}"
