@@ -4,6 +4,8 @@
 {% endif %}
 {% if token.ttl is defined and token.ttl|length %}
     "ttl=<< token.ttl >>"
+{% else %}
+    "ttl=24h"
 {% endif %}
 -}}
 {{- .Auth.ClientToken -}}

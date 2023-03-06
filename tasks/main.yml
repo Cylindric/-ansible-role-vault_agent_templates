@@ -10,3 +10,6 @@
   loop: "{{ vault_tokens }}"
   loop_control:
     loop_var: token
+
+- name: Flush all handlers
+  ansible.builtin.meta: flush_handlers

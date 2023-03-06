@@ -14,8 +14,12 @@ vault_certificates_examples:
     ca_file: "/tmp/ca.pem"
     policy: "server_cert"
     ttl: "1h"
+    owner: ""
+    group: ""
 
 vault_tokens_examples:
   - name: test
     token_file: "/tmp/token"
     ttl: "1h"
+    owner: ""
+    group: ""

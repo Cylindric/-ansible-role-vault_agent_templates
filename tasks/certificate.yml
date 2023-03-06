@@ -1,8 +1,23 @@
 ---
+- name: HomeLab | Vault variables
+  ansible.builtin.set_fact:
+    cert:
+      name: "{{ certificate.name }}"
+      common_name: "{{ certificate.common_name }}"
+      alt_names: "{{ certificate.alt_names }}"
+      ip_sans: "{{ certificate.ip_sans }}"
+      cert_file: "{{ certificate.cert_file }}"
+      key_file: "{{ certificate.key_file }}"
+      ca_file: "{{ certificate.ca_file }}"
+      policy: '{{ certificate["policy"] | default("server_cert") }}'
+      ttl: '{{ certificate["ttl"] | default("24h") }}'
+      owner: '{{ certificate["owner"] | default("") }}'
+      group: '{{ certificate["group"] | default("") }}'
+
 - name: HomeLab | Vault certificate template
   ansible.builtin.template:
     src: "templates/certificate.tmpl"
-    dest: "/etc/vault.d/cert-{{ certificate.name }}.tmpl"
+    dest: "/etc/vault.d/cert-{{ cert.name }}.tmpl"
     variable_start_string: "<<"
     variable_end_string: ">>"
     owner: "{{ vault_user }}"
@@ -17,10 +32,10 @@
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: "0664"
-    marker: "# {mark} CERTIFICATE {{ certificate.name | upper }}"
+    marker: "# {mark} CERTIFICATE {{ cert.name | upper }}"
     block: |
       template {
-        source      = "/etc/vault.d/cert-{{ certificate.name }}.tmpl"
-        destination = "{{ certificate.cert_file }}"
+        source      = "/etc/vault.d/cert-{{ cert.name }}.tmpl"
+        destination = "{{ cert.cert_file }}"
       }
   notify: Restart Vault Agent
