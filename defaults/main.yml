@@ -16,6 +16,7 @@ vault_certificates_examples:
     ttl: "1h"
     owner: ""
     group: ""
+    command: ""
 
 vault_tokens_examples:
   - name: test

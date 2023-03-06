@@ -13,6 +13,7 @@
       ttl: '{{ certificate["ttl"] | default("24h") }}'
       owner: '{{ certificate["owner"] | default("") }}'
       group: '{{ certificate["group"] | default("") }}'
+      command: '{{ certificate["command"] | default("") }}'
 
 - name: HomeLab | Vault certificate template
   ansible.builtin.template:
@@ -37,5 +38,6 @@
       template {
         source      = "/etc/vault.d/cert-{{ cert.name }}.tmpl"
         destination = "{{ cert.cert_file }}"
+        {% if cert.command|length %}command     = "{{ cert.command }}"{% endif %}
       }
   notify: Restart Vault Agent
